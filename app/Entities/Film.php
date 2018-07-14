@@ -24,12 +24,12 @@ class Film extends Model
     protected $fillable = [
         'id',
         'name',
+        'slug_name',
         'description',
         'release_date',
         'rating',
         'ticket_price',
         'country',
-        'genre_id',
         'photo',
         'created_at',
         'updated_at',
@@ -43,7 +43,7 @@ class Film extends Model
     public function getRules()
     {
         $rules = [
-            'name'=> 'required',
+            'name'=> 'required|unique:films',
             'description'=> 'required',
             'release_date'=> 'required',
             'rating'=> 'required|integer|min:1|max:5',
@@ -55,5 +55,11 @@ class Film extends Model
 
         return $rules;
     }
+
+    public function genre_films()
+    {
+        return $this->hasMany('App\Entities\GenreFilm');
+    }
+
 
 }

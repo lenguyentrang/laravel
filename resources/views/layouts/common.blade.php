@@ -21,6 +21,14 @@
     <script type="text/javascript">
         $(document).ready(function() {
             $('#submit').on('click', function () {
+                $('#errors').html('');
+
+                var dataGenres = [];
+                $(":checked").each(function() {
+                    dataGenres.push($(this).val());
+                });
+
+
                 var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
                 var data = {
                     name:$('#name').val(),
@@ -29,14 +37,39 @@
                     rating:$('#rating').val(),
                     ticket_price:$('#ticket_price').val(),
                     country:$('#country').val(),
-                    genre_id:$('#genre_id').val(),
+                    genre_id: dataGenres,
                     photo:$('#photo').val(),
                     _token: CSRF_TOKEN
                 }
-                console.log(data);
                 $.ajax({
                     /* the route pointing to the post function */
                     url: '/films/create',
+                    type: 'POST',
+                    /* send the csrf-token and the input to the controller */
+                    data: data,
+                    /* remind that 'data' is the response of the AjaxController */
+                    success: function (res) {
+                        if(!res.status){
+                            $('#errors').html(res.message+'<br>');
+                        }else{
+                            alert('Created Successful!');
+                            window.location.reload();
+                        }
+                    }
+                });
+            })
+
+            $('#submitComment').on('click', function () {
+                var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+                var data = {
+                    name:$('#name').val(),
+                    comments:$('#comments').val(),
+                    film_id:$('#film_id').val(),
+                    _token: CSRF_TOKEN
+                }
+                $.ajax({
+                    /* the route pointing to the post function */
+                    url: '/comment/add',
                     type: 'POST',
                     /* send the csrf-token and the input to the controller */
                     data: data,

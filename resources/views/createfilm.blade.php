@@ -21,12 +21,13 @@
     <label>Country</label>
     <input name="country" id="country" />
     <br>
-    <label>Genre</label>
-    <select id="genre_id">
+    <label>Genres</label>
+    <fieldset id="genre_id">
         @foreach($genres as $key => $genre)
-        <option {{$key==0?'selected':''}} value="{{$genre->id}}">{{$genre->name}}</option>
-            @endforeach
-    </select>
+            <label>{{$genre->name}}</label>
+        <input type="checkbox" name="chk[]" value="{{$genre->id}}" />
+@endforeach
+    </fieldset>
     <br>
     <label>Photo</label>
     <input name="photo" id="photo" />

@@ -17,12 +17,11 @@ class CreateFilmsTable extends Migration
             $table->increments('id');
             $table->string('name')->nullable();
             $table->string('slug_name')->nullable();
-            $table->string('description')->nullable();
+            $table->text('description')->nullable();
             $table->date('release_date')->nullable();
             $table->tinyInteger('rating')->nullable();
             $table->bigInteger('ticket_price')->nullable();
             $table->string('country')->nullable();
-            $table->bigInteger('genre_id');
             $table->string('photo')->nullable();
             $table->softDeletes();
             $table->timestamps();
