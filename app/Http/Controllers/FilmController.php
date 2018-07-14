@@ -7,6 +7,7 @@ use App\Entities\Film;
 use App\Entities\Genre;
 use App\Entities\GenreFilm;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\View\View;
 
@@ -77,6 +78,13 @@ class FilmController extends Controller
 
 
     public function commentAdd(Request $request){
+        //Check auth when user add comment
+        if(!Auth::check()){
+            return [
+                'status' => 0,
+                'message' => 'User must login to comment this film!'
+            ];
+        }
         $comment = new Comment();
         $inputs = $request->all();
         $validator = Validator::make($inputs, $comment->getRules());
