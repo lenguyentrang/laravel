@@ -5,8 +5,9 @@ namespace App\Entities;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Film extends Model
+class Genre extends Model
 {
+    //
     //
     use SoftDeletes;
 
@@ -15,7 +16,7 @@ class Film extends Model
      *
      * @var string
      */
-    protected $table = 'films';
+    protected $table = 'genres';
     /**
      * The attributes that are mass assignable.
      *
@@ -24,13 +25,6 @@ class Film extends Model
     protected $fillable = [
         'id',
         'name',
-        'description',
-        'release_date',
-        'rating',
-        'ticket_price',
-        'country',
-        'genre_id',
-        'photo',
         'created_at',
         'updated_at',
         'deleted_at'
@@ -46,14 +40,13 @@ class Film extends Model
             'name'=> 'required',
             'description'=> 'required',
             'release_date'=> 'required',
-            'rating'=> 'required|integer|min:1|max:5',
+            'rating'=> 'required|min:1|max:5',
             'ticket_price'=> 'required',
             'country'=> 'required',
-            'genre_id'=> 'required',
+            'genre'=> 'required',
             'photo'=> 'required',
         ];
 
         return $rules;
     }
-
 }
