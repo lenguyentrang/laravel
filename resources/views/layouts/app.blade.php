@@ -21,42 +21,6 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $('#submit').on('click', function () {
-                alert(1111);
-                var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-                var data = {
-                    name:$('#name'),
-                    description:$('#description'),
-                    release_date:$('#release_date'),
-                    rating:$('#rating'),
-                    ticket_price:$('#ticket_price'),
-                    country:$('#country'),
-                    genre:$('#genre'),
-                    photo:$('#photo'),
-                    _token: CSRF_TOKEN
-                }
-                console.log(data);
-                $.ajax({
-                    /* the route pointing to the post function */
-                    url: '/films/create',
-                    type: 'POST',
-                    /* send the csrf-token and the input to the controller */
-                    data: data,
-                    dataType: 'JSON',
-                    /* remind that 'data' is the response of the AjaxController */
-                    success: function (res) {
-                        if(!res.status){
-                            alert(res.message);
-                        }
-                    }
-                });
-            })
-        })
-
-
-    </script>
 </head>
 <body>
     <div id="app">
