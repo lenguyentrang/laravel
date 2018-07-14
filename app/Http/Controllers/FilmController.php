@@ -30,7 +30,9 @@ class FilmController extends Controller
             }
             $film->genreName = implode(',', $genreName);
 
-        return view('filmdetail')->with('film',$film);
+        $comments = Comment::where('film_id', $film->id)->get();
+
+        return view('filmdetail')->with('film',$film)->with('comments',$comments);
     }
 
     public function createView(){

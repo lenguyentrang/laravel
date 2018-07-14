@@ -15,6 +15,15 @@
     <br>
     <label>Country: {{$film->country}}</label>
     <br>
+    <h3>Comments List:</h3>
+    @foreach($comments as $comment)
+        <label>Name: {{$comment->name}}</label>
+        <br>
+        <label>Comment: {{$comment->comments}}</label>
+        <br>
+
+
+    @endforeach
     <label>Genre: {{$film->genreName}}</label>
     <br>
     @if($film->photo)

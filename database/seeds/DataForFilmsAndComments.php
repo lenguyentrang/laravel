@@ -3,6 +3,7 @@
 use App\Entities\Comment;
 use App\Entities\Film;
 use App\Entities\Genre;
+use App\Entities\GenreFilm;
 use Illuminate\Database\Seeder;
 
 class DataForFilmsAndComments extends Seeder
@@ -22,10 +23,12 @@ class DataForFilmsAndComments extends Seeder
             'Comedy'
         ];
 
+        $lastGenreId = 0;
         foreach ($newGenres as $newGenre) {
             $genre = new Genre();
             $genre->name = $newGenre;
             $genre->save();
+            $lastGenreId = $genre->id;
         }
 
 
@@ -86,6 +89,12 @@ class DataForFilmsAndComments extends Seeder
             $comment = new Comment();
             $comments[$key]['film_id'] = $film->id;
             $comment->fill($comments[$key])->save();
+
+            //Create GenreFilms
+            $genreFilm = new GenreFilm();
+            $genreFilm->genre_id = $lastGenreId;
+            $genreFilm->film_id = $film->id;
+            $genreFilm->save();
         }
 
     }
